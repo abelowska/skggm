@@ -6,26 +6,30 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Test Python Package
+name: Publish Python Package
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: [ "master"]
 
 permissions:
   contents: read
 
 jobs:
-  deploy:
+  example_matrix:
+    strategy:
+      matrix:
+        version: [3.8, 3.9]
+        os: [ubuntu-latest, macos-latest]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
-        python-version: '3.x'
+        python-version: ${{ matrix.version }}
     - name: Install dependencies
       run: |
         pip install -U pip wheel
@@ -37,3 +41,12 @@ jobs:
         python -m pytest --showlocals --pyargs
         black --check inverse_covariance
         black --check examples
+    - name: Build package
+      run: |
+        pip install build
+        python -m build --sdist --wheel --outdir dist/ .
+    # - name: Publish package
+    #     uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
+    #     with:
+    #       user: __token__
+    #       password: ${{ secrets.PYPI_API_TOKEN }}
