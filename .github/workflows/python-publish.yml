@@ -10,7 +10,7 @@ name: Publish Python Package
 
 on:
   push:
-    branches: [ "master"]
+    branches: [ "master2"]
 
 permissions:
   contents: read
