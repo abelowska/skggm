@@ -23,31 +23,32 @@ jobs:
         os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
-    container: quay.io/pypa/manylinux2014_x86_64
+    
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.version }}
-    - name: Install dependencies
-      run: |
-        pip install -U pip wheel
-        pip install --install-option="--no-cython-compile" cython
-        pip install -r dev-requirements.txt
-        python setup.py develop
+    # - uses: actions/checkout@v3
+    # - name: Set up Python
+    #   uses: actions/setup-python@v3
+    #   with:
+    #     python-version: ${{ matrix.version }}
+    # - name: Install dependencies
+    #   run: |
+    #     pip install -U pip wheel
+    #     pip install --install-option="--no-cython-compile" cython
+    #     pip install -r dev-requirements.txt
+    #     python setup.py develop
     # - name: Test package
     #   run: |
     #     python -m pytest --showlocals --pyargs
     #     black --check inverse_covariance
     #     black --check examples
-    - name: Build package
-      run: |
-        pip install build auditwheel
-        python -m build --sdist --wheel --outdir dist/ .
-        auditwheel repair dist/*.whl
-    - name: Publish package
-      uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
+      - uses: RalfG/python-wheels-manylinux-build@v0.7.1-manylinux2010_x86_64
+      - name: Build
+      - with:
+        python-versions: 'cp37-cp37m cp38-cp38 cp39-cp39'
+        build-requirements: 'cython numpy scipy'
+        pip-wheel-args: '-w ./dist'
+    # - name: Publish package
+    #   uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
+    #   with:
+    #     user: __token__
+    #     password: ${{ secrets.PYPI_API_TOKEN }}
