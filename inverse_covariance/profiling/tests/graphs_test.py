@@ -89,13 +89,13 @@ class TestGraphs(object):
             brange = slice(nn * n_block_features, (nn + 1) * n_block_features)
             assert (
                 np.sum(adjacency[brange, brange])
-                == n_block_features ** 2 - n_block_features
+                == n_block_features**2 - n_block_features
             )
 
         # assert that all nonzeros equal sum of all blocks above
         assert (
             np.sum(adjacency.flat)
-            == (n_block_features ** 2 - n_block_features) * n_blocks
+            == (n_block_features**2 - n_block_features) * n_blocks
         )
 
     def test_blocks_chain_blocks_true(self):
@@ -118,13 +118,13 @@ class TestGraphs(object):
             brange = slice(nn * n_block_features, (nn + 1) * n_block_features)
             assert (
                 np.sum(adjacency[brange, brange])
-                == n_block_features ** 2 - n_block_features
+                == n_block_features**2 - n_block_features
             )
 
         # assert that all nonzeros DO NOT equal sum of all blocks above
         assert (
             np.sum(adjacency.flat)
-            != (n_block_features ** 2 - n_block_features) * n_blocks
+            != (n_block_features**2 - n_block_features) * n_blocks
         )
 
     @pytest.mark.parametrize(

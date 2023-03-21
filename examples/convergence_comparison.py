@@ -25,10 +25,10 @@ import numpy as np
 X = np.loadtxt("data/Mazumder_example1.txt", delimiter=",")
 Shat = np.cov(X, rowvar=0)
 try:
-    graph_lasso(Shat, alpha=.004)
+    graph_lasso(Shat, alpha=0.004)
 except FloatingPointError as e:
     print("{0}".format(e))
-vals = quic(Shat, .004)
+vals = quic(Shat, 0.004)
 
 
 #############################################################################
@@ -37,7 +37,7 @@ vals = quic(Shat, .004)
 X = np.loadtxt("data/Mazumder_example2.txt", delimiter=",")
 Shat = np.cov(X, rowvar=0)
 try:
-    graph_lasso(Shat, alpha=.02)
+    graph_lasso(Shat, alpha=0.02)
 except FloatingPointError as e:
     print("{0}".format(e))
-vals = quic(Shat, .02)
+vals = quic(Shat, 0.02)

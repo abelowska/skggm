@@ -42,7 +42,7 @@ def r_input(val):
 def make_data(n_samples, n_features):
     prng = np.random.RandomState(1)
     prec = make_sparse_spd_matrix(
-        n_features, alpha=.98, smallest_coef=.4, largest_coef=.7, random_state=prng
+        n_features, alpha=0.98, smallest_coef=0.4, largest_coef=0.7, random_state=prng
     )
     cov = np.linalg.inv(prec)
     d = np.sqrt(np.diag(cov))
@@ -58,7 +58,7 @@ def make_data(n_samples, n_features):
 
 def multiplot(named_mats, suptitle):
     num_rows = len(named_mats) / 3
-    num_plots = int(np.ceil(num_rows / 4.))
+    num_plots = int(np.ceil(num_rows / 4.0))
     for nn in range(num_plots):
         plt.figure(figsize=(10, 8))
         plt.subplots_adjust(left=0.02, right=0.98, hspace=0.4)
@@ -285,16 +285,14 @@ def adaptive_model_average(X, penalization, method):
 
 
 def empirical(X):
-    """Compute empirical covariance as baseline estimator.
-    """
+    """Compute empirical covariance as baseline estimator."""
     print("Empirical")
     cov = np.dot(X.T, X) / n_samples
     return cov, np.linalg.inv(cov)
 
 
 def graph_lasso(X, num_folds):
-    """Estimate inverse covariance via scikit-learn GraphicalLassoCV class.
-    """
+    """Estimate inverse covariance via scikit-learn GraphicalLassoCV class."""
     print("GraphLasso (sklearn)")
     model = GraphicalLassoCV(cv=num_folds)
     model.fit(X)
@@ -303,8 +301,7 @@ def graph_lasso(X, num_folds):
 
 
 def sk_ledoit_wolf(X):
-    """Estimate inverse covariance via scikit-learn ledoit_wolf function.
-    """
+    """Estimate inverse covariance via scikit-learn ledoit_wolf function."""
     print("Ledoit-Wolf (sklearn)")
     lw_cov_, _ = ledoit_wolf(X)
     lw_prec_ = np.linalg.inv(lw_cov_)

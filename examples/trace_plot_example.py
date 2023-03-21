@@ -20,7 +20,7 @@ from inverse_covariance.profiling import LatticeGraph
 def make_data(n_samples, n_features):
     prng = np.random.RandomState(1)
     prec = make_sparse_spd_matrix(
-        n_features, alpha=.98, smallest_coef=.4, largest_coef=.7, random_state=prng
+        n_features, alpha=0.98, smallest_coef=0.4, largest_coef=0.7, random_state=prng
     )
     cov = np.linalg.inv(prec)
     d = np.sqrt(np.diag(cov))

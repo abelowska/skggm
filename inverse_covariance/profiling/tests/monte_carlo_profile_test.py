@@ -76,7 +76,7 @@ class TestMonteCarloProfile(object):
 
     @pytest.mark.parametrize("params_in", [({"n_trials": 20, "n_features": 10})])
     def test_integration_monte_carlo_profile_default(self, params_in):
-        """Use default graph and metrics. """
+        """Use default graph and metrics."""
         mc = MonteCarloProfile(**params_in)
         mc.fit()
 

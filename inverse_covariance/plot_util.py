@@ -94,7 +94,7 @@ def trace_plot(precisions, path, n_edges=20, ground_truth=None, edges=[]):
     # flatten each matrix into a column (so that coeffs are examples)
     # compute l1-norm of each column
     l1_norms = []
-    coeffs = np.zeros((dim ** 2, len(precisions)))
+    coeffs = np.zeros((dim**2, len(precisions)))
     for ridx, result in enumerate(precisions):
         coeffs[edges, ridx] = result.flat[edges]
         l1_norms.append(np.linalg.norm(coeffs[:, ridx]))

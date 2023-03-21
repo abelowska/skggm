@@ -9,7 +9,7 @@ from inverse_covariance.rank_correlation import (
 )
 
 Y = np.ones(shape=[10, 2])
-X = .001 * np.random.randn(20, 1)
+X = 0.001 * np.random.randn(20, 1)
 X = np.append(X, X, axis=1)
 
 

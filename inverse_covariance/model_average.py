@@ -17,7 +17,7 @@ def _check_psd(m):
 def _fully_random_weights(n_features, lam_scale, prng):
     """Generate a symmetric random matrix with zeros along the diagonal."""
     weights = np.zeros((n_features, n_features))
-    n_off_diag = int((n_features ** 2 - n_features) / 2)
+    n_off_diag = int((n_features**2 - n_features) / 2)
     weights[np.triu_indices(n_features, k=1)] = 0.1 * lam_scale * prng.randn(
         n_off_diag
     ) + (0.25 * lam_scale)
@@ -32,11 +32,11 @@ def _random_weights(n_features, lam, lam_perturb, prng):
     with probability 1/2.
     """
     weights = np.zeros((n_features, n_features))
-    n_off_diag = int((n_features ** 2 - n_features) / 2)
+    n_off_diag = int((n_features**2 - n_features) / 2)
     berns = prng.binomial(1, 0.5, size=n_off_diag)
     vals = np.zeros(berns.shape)
-    vals[berns == 0] = 1. * lam * lam_perturb
-    vals[berns == 1] = 1. * lam / lam_perturb
+    vals[berns == 0] = 1.0 * lam * lam_perturb
+    vals[berns == 1] = 1.0 * lam / lam_perturb
     weights[np.triu_indices(n_features, k=1)] = vals
     weights[weights < 0] = 0
     weights = weights + weights.T
@@ -319,7 +319,6 @@ class ModelAverage(BaseEstimator):
         self.n_jobs = n_jobs
         self.sc = sc
         self.seed = seed
-        
 
     def fit(self, X, y=None):
         """Learn a model averaged proportion matrix for X.
@@ -330,7 +329,7 @@ class ModelAverage(BaseEstimator):
         """
         # default to QuicGraphicalLasso
         estimator = self.estimator or QuicGraphicalLasso()
-        # To satisfy sklearn 
+        # To satisfy sklearn
         if y is not None and len(y) == 1:
             raise ValueError("Cannot fit with just 1 sample.")
         self._prng = np.random.RandomState(self.seed)
@@ -393,10 +392,10 @@ class ModelAverage(BaseEstimator):
             # update proportions
             if isinstance(new_estimator.precision_, list):
                 for prec in new_estimator.precision_:
-                    self.proportion_[np.nonzero(prec)] += 1.
+                    self.proportion_[np.nonzero(prec)] += 1.0
 
             elif isinstance(new_estimator.precision_, np.ndarray):
-                self.proportion_[np.nonzero(new_estimator.precision_)] += 1.
+                self.proportion_[np.nonzero(new_estimator.precision_)] += 1.0
 
             else:
                 raise ValueError("Estimator returned invalid precision_.")

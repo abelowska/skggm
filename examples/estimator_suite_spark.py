@@ -230,16 +230,14 @@ def adaptive_model_average(X, penalization, method):
 
 
 def empirical(X):
-    """Compute empirical covariance as baseline estimator.
-    """
+    """Compute empirical covariance as baseline estimator."""
     print("Empirical")
     cov = np.dot(X.T, X) / n_samples
     return cov, np.linalg.inv(cov)
 
 
 def sk_ledoit_wolf(X):
-    """Estimate inverse covariance via scikit-learn ledoit_wolf function.
-    """
+    """Estimate inverse covariance via scikit-learn ledoit_wolf function."""
     print("Ledoit-Wolf (sklearn)")
     lw_cov_, _ = ledoit_wolf(X)
     lw_prec_ = np.linalg.inv(lw_cov_)
@@ -421,7 +419,7 @@ if __name__ == "__main__":
     suptitle = "Precision Estimates"
 
     num_rows = len(named_mats) / 3
-    num_plots = int(np.ceil(num_rows / 4.))
+    num_plots = int(np.ceil(num_rows / 4.0))
     figs = []
     for nn in range(num_plots):
         fig = plt.figure(figsize=(10, 8))

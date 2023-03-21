@@ -62,7 +62,7 @@ class AdaptiveGraphicalLasso(BaseEstimator):
         n_features, _ = estimator.precision_.shape
         lam = np.zeros((n_features, n_features))
         mask = estimator.precision_ != 0
-        lam[mask] = 1. / (np.abs(estimator.precision_[mask]) ** 2)
+        lam[mask] = 1.0 / (np.abs(estimator.precision_[mask]) ** 2)
         mask_0 = estimator.precision_ == 0
         lam[mask_0] = np.max(lam[mask].flat)  # non-zero in appropriate range
         lam[np.diag_indices(n_features)] = 0
@@ -72,7 +72,7 @@ class AdaptiveGraphicalLasso(BaseEstimator):
         n_features, _ = estimator.precision_.shape
         lam = np.zeros((n_features, n_features))
         mask = estimator.precision_ != 0
-        lam[mask] = 1. / np.abs(estimator.precision_[mask])
+        lam[mask] = 1.0 / np.abs(estimator.precision_[mask])
         mask_0 = estimator.precision_ == 0
         lam[mask_0] = np.max(lam[mask].flat)  # non-zero in appropriate range
         lam[np.diag_indices(n_features)] = 0
@@ -95,7 +95,7 @@ class AdaptiveGraphicalLasso(BaseEstimator):
         X = as_float_array(X, copy=False, force_all_finite=False)
 
         n_samples_, n_features_ = X.shape
-        
+
         # perform first estimate
         estimator.fit(X)
 

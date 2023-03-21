@@ -298,7 +298,7 @@ class MonteCarloProfile(object):
             for key in self.metrics:
                 results_by_key = np.array([t[key] for t in trials])
                 self.results_[key][aidx, gidx] = (
-                    1. * np.sum(results_by_key) / self.n_trials
+                    1.0 * np.sum(results_by_key) / self.n_trials
                 )
 
         if self.verbose:

@@ -55,8 +55,7 @@ def support_difference_count(m, m_hat):
 
 
 def has_exact_support(m, m_hat):
-    """Returns 1 if support_difference_count is zero, 0 else.
-    """
+    """Returns 1 if support_difference_count is zero, 0 else."""
     m_nnz, m_hat_nnz, intersection_nnz = _nonzero_intersection(m, m_hat)
     return int((m_nnz + m_hat_nnz - (2 * intersection_nnz)) == 0)
 
@@ -78,12 +77,12 @@ def has_approx_support(m, m_hat, prob=0.01):
 
     true_positive_rate = 0.0
     if len(m_nz):
-        true_positive_rate = 1. * np.sum(intersection) / len(m_nz)
-        true_negative_rate = 1. - true_positive_rate
+        true_positive_rate = 1.0 * np.sum(intersection) / len(m_nz)
+        true_negative_rate = 1.0 - true_positive_rate
 
     false_positive_rate = 0.0
     if len(not_m_nz):
-        false_positive_rate = 1. * np.sum(not_intersection) / len(not_m_nz)
+        false_positive_rate = 1.0 * np.sum(not_intersection) / len(not_m_nz)
 
     return int(np.less_equal(true_negative_rate + false_positive_rate, prob))
 

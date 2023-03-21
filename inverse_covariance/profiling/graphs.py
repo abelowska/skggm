@@ -30,11 +30,11 @@ def lattice(prng, n_features, alpha, random_sign=False, low=0.3, high=0.7):
     high : float (0, 1) > low (default=0.7)
         Upper bound for np.random.RandomState.uniform before normalization.
     """
-    degree = int(1 + np.round(alpha * n_features / 2.))
+    degree = int(1 + np.round(alpha * n_features / 2.0))
 
     if random_sign:
         sign_row = -1.0 * np.ones(degree) + 2 * (
-            prng.uniform(low=0, high=1, size=degree) > .5
+            prng.uniform(low=0, high=1, size=degree) > 0.5
         )
     else:
         sign_row = -1.0 * np.ones(degree)
@@ -187,7 +187,7 @@ class Graph(object):
         -----------
         (n_features, n_features) matrices: covariance, precision, adjacency
         """
-        n_block_features = int(np.floor(1. * n_features / self.n_blocks))
+        n_block_features = int(np.floor(1.0 * n_features / self.n_blocks))
         if n_block_features * self.n_blocks != n_features:
             raise ValueError(
                 (

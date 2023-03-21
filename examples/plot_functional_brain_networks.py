@@ -50,7 +50,7 @@ print("First subject functional nifti images (4D) are at: %s" % abide.func[0])
 masker = input_data.NiftiSpheresMasker(
     seeds=coords,
     smoothing_fwhm=4,
-    radius=5.,
+    radius=5.0,
     standardize=True,
     detrend=True,
     low_pass=0.1,

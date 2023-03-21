@@ -62,7 +62,7 @@ def quic(
     if isinstance(lam, float):
         _lam = np.empty((Sn, Sm))
         _lam[:] = lam
-        _lam[np.diag_indices(Sn)] = 0.  # make sure diagonal is zero
+        _lam[np.diag_indices(Sn)] = 0.0  # make sure diagonal is zero
     else:
         assert lam.shape == S.shape, "lam, S shape mismatch."
         _lam = as_float_array(lam, copy=False, force_all_finite=False)
@@ -319,10 +319,10 @@ class QuicGraphicalLasso(InverseCovarianceEstimator):
         self
         """
 
-        # To satisfy sklearn 
+        # To satisfy sklearn
         if y is not None and len(y) == 1:
             raise ValueError("Cannot fit with just 1 sample.")
-    
+
         # quic-specific outputs
         self.opt_ = None
         self.cputime_ = None
@@ -365,8 +365,7 @@ class QuicGraphicalLasso(InverseCovarianceEstimator):
         return self
 
     def lam_at_index(self, lidx):
-        """Compute the scaled lambda used at index lidx.
-        """
+        """Compute the scaled lambda used at index lidx."""
         if self.path_ is None:
             return self.lam * self.lam_scale_
 
@@ -400,8 +399,7 @@ def _quic_path(
     score_metric="log_likelihood",
     init_method="corrcoef",
 ):
-    """Wrapper to compute path for example X.
-    """
+    """Wrapper to compute path for example X."""
     S, lam_scale_ = _init_coefs(X, method=init_method)
 
     path = path.copy(order="C")
@@ -607,7 +605,7 @@ class QuicGraphicalLassoCV(InverseCovarianceEstimator):
             Data from which to compute the covariance estimate
         """
 
-        # To satisfy sklearn 
+        # To satisfy sklearn
         if y is not None and len(y) == 1:
             raise ValueError("Cannot fit with just 1 sample.")
 
@@ -727,7 +725,7 @@ class QuicGraphicalLassoCV(InverseCovarianceEstimator):
                 else:
                     this_score = np.mean(scores)
 
-                if this_score >= .1 / np.finfo(np.float64).eps:
+                if this_score >= 0.1 / np.finfo(np.float64).eps:
                     this_score = np.nan
 
                 if np.isfinite(this_score):
@@ -943,7 +941,7 @@ class QuicGraphicalLassoEBIC(InverseCovarianceEstimator):
         self
         """
 
-        # To satisfy sklearn 
+        # To satisfy sklearn
         if y is not None and len(y) == 1:
             raise ValueError("Cannot fit with just 1 sample.")
 

@@ -26,7 +26,7 @@ def log_likelihood(covariance, precision):
         + fast_logdet(precision)
         - dim * np.log(2 * np.pi)
     )
-    log_likelihood_ /= 2.
+    log_likelihood_ /= 2.0
     return log_likelihood_
 
 
@@ -114,7 +114,7 @@ def ebic(covariance, precision, n_samples, n_features, gamma=0):
     ebic score (float).  Caller should minimized this score.
     """
     l_theta = -np.sum(covariance * precision) + fast_logdet(precision)
-    l_theta *= n_features / 2.
+    l_theta *= n_features / 2.0
 
     # is something goes wrong with fast_logdet, return large value
     if np.isinf(l_theta) or np.isnan(l_theta):
