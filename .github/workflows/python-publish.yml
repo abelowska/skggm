@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Publish Python Package
+name: Build Mac Python Package
 
 on:
   push:
@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  example_matrix:
+  build_mac:
     strategy:
       matrix:
         version: [3.9]
@@ -34,8 +34,6 @@ jobs:
       run: |
         pip install build
         python -m build --sdist --wheel --outdir dist/ .
-    - name: Publish package
-      uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
+    - uses: actions/upload-artifact@v3
+        with:
+          path: ./dist
