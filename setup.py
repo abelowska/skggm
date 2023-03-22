@@ -62,7 +62,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='skggm2',
-    version='0.2.9',
+    version='0.2.10',
     description='Gaussian graphical models for scikit-learn.',
     author='Jason Laska and Manjari Narayan',
     license='MIT',
