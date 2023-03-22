@@ -6,6 +6,8 @@ name: Test python package
 on:
   pull_request:
     branches: [ "develop", "master"]
+  push:
+    branches: [ "develop", "master"]
 
 permissions:
   contents: read

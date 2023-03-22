@@ -995,7 +995,7 @@ class QuicGraphicalLassoEBIC(InverseCovarianceEstimator):
 
         # apply EBIC criteria
         best_lam_idx = self.ebic_select(gamma=self.gamma)
-        
+
         self.lam_ = self.lam * self.lam_scale_ * self.path_[best_lam_idx]
         self.precision_ = self.precision_[best_lam_idx]
         self.covariance_ = self.covariance_[best_lam_idx]

@@ -161,7 +161,6 @@ class InverseCovarianceEstimator(BaseEstimator):
 
         super(InverseCovarianceEstimator, self).__init__()
 
-
     def init_coefs(self, X):
         """Computes ...
 
