@@ -39,7 +39,7 @@ jobs:
         env:
           CIBW_BEFORE_ALL: 'yum makecache && yum install -y lapack-devel openblas-devel'
           CIBW_BUILD: "*-manylinux_x86_64"
-          CIBW_SKIP: "cp36-* cp37-* cp311-* cp310-*"
+          CIBW_SKIP: "pp* cp36-* cp37-* cp311-* cp310-*"
       - uses: actions/upload-artifact@v3
         with:
           path: ./dist/*.whl
@@ -65,7 +65,8 @@ jobs:
   upload_all:
     needs: [build_wheels, build_mac]
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'published'
+    # upload to PyPI on every tag starting with 'v'
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     steps:
     - uses: actions/download-artifact@v3
       with:
