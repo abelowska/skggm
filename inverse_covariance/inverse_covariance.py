@@ -161,10 +161,6 @@ class InverseCovarianceEstimator(BaseEstimator):
 
         super(InverseCovarianceEstimator, self).__init__()
 
-    def fit(self, X, y=None, **fit_params):
-        # To satisfy sklearn
-        if len(y) == 1:
-            raise ValueError("Cannot fit with just 1 sample.")
 
     def init_coefs(self, X):
         """Computes ...
@@ -346,5 +342,7 @@ class InverseCovarianceEstimator(BaseEstimator):
             return
 
         ebic_scores = self.ebic(gamma=gamma)
+
         min_indices = np.where(np.abs(ebic_scores - ebic_scores.min()) < 1e-10)
+
         return np.max(min_indices)

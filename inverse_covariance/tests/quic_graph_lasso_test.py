@@ -289,8 +289,8 @@ class TestQuicGraphicalLasso(object):
         X = datasets.load_diabetes().data
         ic = QuicGraphicalLassoEBIC(**params_in)
         ic.fit(X)
-
         result_vec = [np.linalg.norm(ic.covariance_), np.linalg.norm(ic.precision_)]
+        
         if isinstance(ic.lam_, float):
             result_vec.append(ic.lam_)
         elif isinstance(ic.lam_, np.ndarray):
