@@ -70,7 +70,7 @@ def quic(
     # Defaults.
     optSize = 1
     iterSize = 1
-    if mode is "trace":
+    if mode == "trace":
         optSize = max_iter
 
     # Default Theta0, Sigma0 when both are None.
